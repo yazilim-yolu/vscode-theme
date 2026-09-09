@@ -1,0 +1,5 @@
+.vscode/**
+.gitignore
+scratchpad/**
+**/*.map
+assets/logo_e.png
