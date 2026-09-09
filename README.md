@@ -11,9 +11,17 @@ Hem **koyu** hem **açık** varyant içerir.
 | Turkuaz     | `#3ABACD` | İkincil vurgu — imleç, bağlantılar, arama eşleşmeleri |
 | Lacivert    | `#232D5B` | Koyu temanın zemin tonu, açık temada gölge/kaydırma |
 
-Sözdizimi renkleri bu üç tondan üretilmiş, okunabilirlik için açık/koyu zemine
-göre parlaklık ve doygunlukları ayarlanmış bir paletle tamamlanır (fonksiyonlar
-için köprü mavisi, tip/sınıf için yeşil-turkuaz, sayı/sabit için sıcak amber).
+Arayüz (workbench) kroması bu üç tona sadık kalır; zeminler logo lacivertinden
+türetilip göz yormayacak biçimde yumuşatılmıştır.
+
+Kod dosyalarında ise bluloco tarzı, daha zengin bir sözdizimi paleti kullanılır —
+üç marka tonundan yola çıkıp okunabilirlik için açık/koyu zemine göre parlaklık
+ve doygunluğu ayarlanmış ~10 ayrı renk: mor/lavanta (anahtar kelime), köprü
+mavisi (fonksiyon), yeşil-turkuaz (string), turkuaz (regexp), teal (tip/sınıf),
+amber (sayı/sabit), sarı (dekoratör/makro), gül (etiket, `this`/`self`).
+Palet TypeScript/JSX, Python, Rust, Go, C/C++, C#, Java, PHP, Ruby, CSS/SCSS,
+JSON, YAML, TOML, SQL, GraphQL, Markdown, Dockerfile ve shell kapsamları için
+ayrıca ayarlanmıştır.
 
 ## İçindekiler
 
@@ -26,7 +34,7 @@ için köprü mavisi, tip/sınıf için yeşil-turkuaz, sayı/sabit için sıcak
 npm install -g @vscode/vsce
 cd vscode-theme
 vsce package
-code --install-extension yazilim-yolu-theme-0.1.0.vsix
+code --install-extension yazilim-yolu-theme-0.2.0.vsix
 ```
 
 Ya da geliştirme için: klasörü VS Code'da açıp `F5` ile Extension Development
