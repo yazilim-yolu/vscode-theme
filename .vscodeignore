@@ -1,5 +1,9 @@
 .vscode/**
+.github/**
 .gitignore
 scratchpad/**
+samples/**
+node_modules/**
 **/*.map
+**/*.vsix
 assets/logo_e.png

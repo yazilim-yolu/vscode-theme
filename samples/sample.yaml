@@ -1,0 +1,111 @@
+# YAML — tema testi.
+# Anchor/alias, blok skalerler, akış stili ve etiketler.
+
+%YAML 1.2
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: &ad yazilim-yolu-tema
+  namespace: uretim
+  labels:
+    app: *ad
+    surum: "0.2.1"
+    yonetilen: true
+  annotations:
+    aciklama: >
+      Katlanmış blok: bu satırlar tek satır hâlinde
+      birleştirilir ve boşlukla ayrılır.
+    script: |
+      #!/bin/sh
+      echo "Değişmez blok — satır sonları korunur"
+      exit 0
+
+varsayilanlar: &varsayilanlar
+  yeniden_baslat: always
+  cpu: 250m
+  bellek: 512Mi
+  gunluk_seviyesi: warn
+
+spec:
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels: { app: *ad }
+  template:
+    metadata:
+      labels:
+        app: *ad
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/yazilimyolu/api:0.2.1
+          imagePullPolicy: IfNotPresent
+          <<: *varsayilanlar
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - { containerPort: 9090, name: metrics }
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: TEMA
+              value: "yazilim-yolu-dark"
+            - name: GIZLI
+              valueFrom:
+                secretKeyRef: { name: api-secret, key: token }
+          args: ["--port=8080", "--tema", *ad]
+          resources:
+            limits: { cpu: "1", memory: 1Gi }
+        - name: sidecar
+          image: busybox:latest
+          command: [/bin/sh, -c, "sleep 3600"]
+
+# Skaler tipleri
+tipler:
+  bos_deger: null
+  tilde_bos: ~
+  bos_alan:
+  dogru: true
+  yanlis: false
+  evet_metin: "yes"
+  tamsayi: 42
+  negatif: -7
+  onaltilik: 0xDEAD
+  sekizlik: 0o755
+  ikilik: 0b1010
+  ondalik: 3.14159
+  ussel: 3.14e-2
+  sonsuz: .inf
+  tanimsiz: .nan
+  tarih: 2026-09-11
+  zaman_damgasi: 2026-09-11T08:30:00Z
+  acik_metin: !!str 12345
+  ikili: !!binary |
+    R0lGODlhDAAMAIQAAP//9/X1
+  liste: !!seq [a, b, c]
+
+renkler:
+  - "#7C3BED"   # mor
+  - "#3ABACD"   # turkuaz
+  - "#232D5B"   # lacivert
+  - '#141830'   # zemin
+
+akis_stili: { ad: board, etiketler: [mor, turkuaz], derinlik: 2 }
+
+karmasik_anahtar:
+  ? [ bir, iki ]
+  : birlesik-deger
+
+---
+# İkinci belge
+kind: Service
+metadata:
+  name: *ad
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8080
+...

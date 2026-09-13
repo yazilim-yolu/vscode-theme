@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "yazilim-yolu-ornek",
+  "version": "0.2.1",
+  "description": "Tema testi için JSON örneği — tüm değer tipleri.",
+  "private": true,
+  "aktif": true,
+  "devreDisi": false,
+  "bosDeger": null,
+  "sayilar": {
+    "tamsayi": 42,
+    "negatif": -7,
+    "sifir": 0,
+    "ondalik": 3.14159,
+    "usluBuyuk": 1.0e10,
+    "usluKucuk": 3.14e-2,
+    "buyukTamsayi": 1000000
+  },
+  "metinler": {
+    "duz": "Yazılım Yolu",
+    "kacisli": "satır\nsonu\ttab \"tırnak\" \\ters",
+    "unicode": "çİş — 🎨",
+    "bos": "",
+    "url": "https://yazilimyolu.example/tema?mod=dark&v=2"
+  },
+  "renkler": ["#7C3BED", "#3ABACD", "#232D5B", "#141830"],
+  "matris": [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+  ],
+  "gorevler": [
+    {
+      "id": 1,
+      "baslik": "tema testi",
+      "tamamlandi": false,
+      "etiketler": ["mor", "turkuaz"],
+      "oncelik": 3,
+      "meta": {
+        "olusturan": "ceng.osmandurdag@gmail.com",
+        "tarih": "2026-09-11T08:30:00Z",
+        "surum": null
+      }
+    },
+    {
+      "id": 2,
+      "baslik": "gözden geçir",
+      "tamamlandi": true,
+      "etiketler": [],
+      "oncelik": 1,
+      "meta": {}
+    }
+  ],
+  "ayarlar": {
+    "editor.tokenColorCustomizations": {
+      "[Yazılım Yolu Dark]": {
+        "comments": "#5C6280",
+        "keywords": "#A98BF0",
+        "strings": "#6FD0AE",
+        "numbers": "#E0A46E",
+        "functions": "#5AA6F0",
+        "types": "#58C8D8",
+        "variables": "#BFC3DC"
+      }
+    },
+    "workbench.colorCustomizations": {
+      "editor.background": "#141830",
+      "sideBar.background": "#11142A",
+      "activityBar.background": "#0D1022"
+    }
+  },
+  "bosNesne": {},
+  "bosDizi": [],
+  "karisik": [1, "iki", true, null, 4.5, { "bes": 5 }, [6]]
+}

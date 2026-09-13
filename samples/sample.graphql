@@ -1,0 +1,201 @@
+# GraphQL — tema testi.
+# Şema tanımı, direktifler, fragment'ler, sorgu/mutasyon/abonelik.
+
+"""
+Yazılım Yolu örnek şeması.
+Blok açıklama — `kod` ve **vurgu** içerebilir.
+"""
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+directive @auth(gerekli: Role! = USER) on FIELD_DEFINITION | OBJECT
+directive @deprecated(reason: String = "Artık kullanılmıyor") on FIELD_DEFINITION | ENUM_VALUE
+
+scalar DateTime
+scalar JSON
+
+enum Role {
+  ADMIN
+  USER
+  GUEST @deprecated(reason: "GUEST kaldırıldı")
+}
+
+enum Level {
+  DEBUG
+  INFO
+  WARN
+  ERROR
+}
+
+interface Node {
+  id: ID!
+  createdAt: DateTime!
+}
+
+interface Timestamped {
+  updatedAt: DateTime
+}
+
+union SearchResult = Task | User | Board
+
+input TaskFilter {
+  done: Boolean = false
+  tags: [String!] = []
+  level: Level = INFO
+  priority: Int
+  search: String
+}
+
+input TaskInput {
+  title: String!
+  tags: [String!]! = []
+  priority: Int = 3
+  meta: JSON
+}
+
+type User implements Node & Timestamped @auth(gerekli: USER) {
+  id: ID!
+  email: String!
+  name: String
+  role: Role!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  tasks(first: Int = 10, after: String, filter: TaskFilter): TaskConnection!
+}
+
+type Task implements Node {
+  id: ID!
+  title: String!
+  done: Boolean!
+  tags: [String!]!
+  priority: Int
+  level: Level!
+  owner: User!
+  createdAt: DateTime!
+  legacyField: String @deprecated
+}
+
+type Board implements Node {
+  id: ID!
+  name: String!
+  tasks: [Task!]!
+  createdAt: DateTime!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type TaskEdge {
+  cursor: String!
+  node: Task!
+}
+
+type TaskConnection {
+  edges: [TaskEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Query {
+  node(id: ID!): Node
+  me: User @auth(gerekli: USER)
+  tasks(filter: TaskFilter, first: Int = 20): TaskConnection!
+  search(term: String!, limit: Int = 5): [SearchResult!]!
+}
+
+type Mutation {
+  createTask(input: TaskInput!): Task!
+  toggleTask(id: ID!): Task
+  deleteTasks(ids: [ID!]!): Int! @auth(gerekli: ADMIN)
+}
+
+type Subscription {
+  taskChanged(boardId: ID!): Task!
+}
+
+extend type Query {
+  version: String!
+}
+
+# ---- İşlemler ----
+
+fragment TaskFields on Task {
+  id
+  title
+  done
+  tags
+  priority
+  level
+  createdAt
+}
+
+fragment OwnerFields on User {
+  id
+  email
+  name
+  role
+}
+
+query PanoyuGetir($boardId: ID!, $ilk: Int = 10, $imlec: String, $detay: Boolean! = true) {
+  node(id: $boardId) {
+    __typename
+    id
+    ... on Board {
+      name
+      tasks @include(if: $detay) {
+        ...TaskFields
+        owner {
+          ...OwnerFields
+        }
+      }
+    }
+    ... on Task @skip(if: $detay) {
+      title
+    }
+  }
+
+  tasks(first: $ilk, filter: { done: false, tags: ["mor", "turkuaz"], level: WARN }) {
+    totalCount
+    edges {
+      cursor
+      node {
+        ...TaskFields
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+
+  aramaSonucu: search(term: "tema", limit: 3) {
+    __typename
+    ... on Task {
+      title
+    }
+    ... on User {
+      email
+    }
+  }
+}
+
+mutation GorevOlustur($girdi: TaskInput!) {
+  createTask(input: $girdi) {
+    ...TaskFields
+  }
+}
+
+subscription GorevDegisti($boardId: ID!) {
+  taskChanged(boardId: $boardId) {
+    id
+    done
+    title
+  }
+}

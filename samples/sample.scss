@@ -1,0 +1,157 @@
+// SCSS — tema testi.
+// Değişkenler, mixin'ler, fonksiyonlar, kontrol yapıları ve iç içe kurallar.
+
+@use "sass:color";
+@use "sass:map";
+@use "sass:math";
+@forward "tokens" as token-*;
+
+$mor: #7c3bed;
+$turkuaz: #3abacd;
+$lacivert: #232d5b;
+$zemin: #141830 !default;
+$radius: 6px !default;
+$breakpoints: (
+  "sm": 576px,
+  "md": 768px,
+  "lg": 1200px,
+);
+
+@function tone($color, $amount: 8%) {
+  @if $amount > 50% {
+    @error "tone(): #{$amount} çok yüksek";
+  } @else if $amount == 0 {
+    @warn "tone(): etkisiz çağrı";
+    @return $color;
+  }
+  @return color.adjust($color, $lightness: -$amount);
+}
+
+@mixin flex($dir: row, $gap: 8px) {
+  display: flex;
+  flex-direction: $dir;
+  gap: $gap;
+  align-items: center;
+}
+
+@mixin responsive($key) {
+  $value: map.get($breakpoints, $key);
+  @media screen and (min-width: $value) and (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+%kart-taban {
+  border-radius: $radius;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  background-color: tone($zemin, 2%);
+}
+
+:root {
+  --yy-mor: #{$mor};
+  --yy-turkuaz: #{$turkuaz};
+  --yy-zemin: #{$zemin};
+  --yy-font: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+  color-scheme: dark light;
+}
+
+@supports (backdrop-filter: blur(4px)) {
+  .panel--cam {
+    backdrop-filter: blur(12px) saturate(140%);
+  }
+}
+
+.board {
+  @extend %kart-taban;
+  @include flex(column, 12px);
+
+  position: relative;
+  inline-size: clamp(320px, 60vw, 960px);
+  padding: math.div(24px, 2) 16px;
+  color: rgb(191 195 220 / 90%);
+  font: italic small-caps bold 14px/1.6 var(--yy-font);
+  transition:
+    background-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 120ms ease-in-out;
+
+  &__title {
+    margin: 0;
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+    color: color.mix($mor, #ffffff, 65%);
+
+    &::after {
+      content: "•";
+      margin-inline-start: 4px;
+      opacity: 0.6;
+    }
+  }
+
+  &--yogun > .board__title {
+    text-transform: uppercase;
+  }
+
+  &:hover,
+  &:focus-within {
+    transform: translateY(-1px);
+    background-color: tone($zemin, -3%);
+  }
+
+  &:not(.is-disabled):nth-child(2n + 1)::before {
+    content: counter(satir) ". ";
+    counter-increment: satir;
+  }
+
+  @include responsive("md") {
+    padding-inline: 24px;
+  }
+}
+
+@each $ad, $renk in ("mor": $mor, "turkuaz": $turkuaz, "lacivert": $lacivert) {
+  .badge--#{$ad} {
+    background-color: rgba($renk, 0.18);
+    border: 1px solid $renk;
+    color: color.scale($renk, $lightness: 30%);
+  }
+}
+
+@for $i from 1 through 6 {
+  .mt-#{$i} {
+    margin-block-start: #{$i * 4}px;
+  }
+}
+
+$sayac: 0;
+@while $sayac < 3 {
+  .z-#{$sayac} {
+    z-index: $sayac * 10;
+  }
+  $sayac: $sayac + 1;
+}
+
+@keyframes nabiz {
+  from {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px $turkuaz);
+  }
+  to {
+    opacity: 0.4;
+  }
+}
+
+.spinner {
+  animation: nabiz 1.2s infinite alternate both;
+  inline-size: 24px;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, $mor 0%, $turkuaz 100%);
+  clip-path: circle(50% at 50% 50%);
+}
+
+@media print {
+  .board {
+    all: unset !important;
+  }
+}

@@ -2,7 +2,7 @@
   "name": "yazilim-yolu-theme",
   "displayName": "Yazılım Yolu",
   "description": "Yazılım Yolu şirket logosunun renklerinden (mor, turkuaz, lacivert) türetilmiş açık ve koyu VS Code temaları.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "yazilim-yolu",
   "engines": {
     "vscode": "^1.70.0"

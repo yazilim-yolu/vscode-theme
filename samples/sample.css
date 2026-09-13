@@ -1,0 +1,137 @@
+/* CSS — tema testi. Custom property'ler, at-rule'lar, seçici çeşitleri. */
+
+@charset "UTF-8";
+@import url("reset.css") layer(reset) screen;
+@namespace svg url(http://www.w3.org/2000/svg);
+
+@layer reset, tema, bilesenler;
+
+@font-face {
+  font-family: "YY Mono";
+  src:
+    url("/fonts/yy-mono.woff2") format("woff2"),
+    url("/fonts/yy-mono.woff") format("woff");
+  font-weight: 400 700;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0130-0131, U+015E-015F;
+}
+
+@property --yy-aci {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@layer tema {
+  :root {
+    --yy-mor: #7c3bed;
+    --yy-turkuaz: #3abacd;
+    --yy-lacivert: #232d5b;
+    --yy-zemin: #141830;
+    --yy-metin: rgb(191 195 220 / 92%);
+    --yy-bosluk: clamp(8px, 1vw + 4px, 20px);
+    color-scheme: dark;
+    accent-color: var(--yy-mor);
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--yy-mor) 40%, transparent);
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--yy-zemin);
+  color: var(--yy-metin);
+  font:
+    normal 400 16px / 1.55 "YY Mono",
+    ui-monospace,
+    monospace;
+  tab-size: 2;
+}
+
+.board > .board__item + .board__item {
+  border-block-start: 1px solid rgb(255 255 255 / 6%);
+}
+
+a[href^="https://"]:not([rel~="noopener"])::after
+{
+  content: " ↗";
+  color: var(--yy-turkuaz);
+}
+
+input[type="checkbox"]:checked ~ label,
+li:nth-of-type(odd):hover,
+tr:nth-last-child(2n + 1) {
+  text-decoration: line-through solid 2px;
+  opacity: 0.65;
+}
+
+.card:is(.is-active, .is-focus):where(.dark, [data-theme="dark"]) {
+  outline: 2px dashed var(--yy-turkuaz);
+  outline-offset: 3px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-areas:
+    "kenar icerik"
+    "kenar altlik";
+  gap: var(--yy-bosluk) calc(var(--yy-bosluk) * 1.5);
+  place-items: start stretch;
+}
+
+.gradient {
+  background-image:
+    conic-gradient(from var(--yy-aci), var(--yy-mor), var(--yy-turkuaz), var(--yy-mor)),
+    radial-gradient(circle at 30% 40%, #ffffff22 0%, transparent 60%);
+  transition: --yy-aci 800ms linear;
+  will-change: transform, opacity;
+}
+
+.gradient:hover {
+  --yy-aci: 360deg;
+  transform: rotate3d(0, 1, 0, 12deg) scale(1.02);
+}
+
+@keyframes kayma {
+  0% {
+    translate: -100% 0;
+  }
+  60% {
+    translate: 10% 0;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .panel {
+    animation: kayma 420ms ease-out both;
+  }
+}
+
+@container card (inline-size > 400px) {
+  .card__title {
+    font-size: 1.5rem;
+  }
+}
+
+@supports selector(:has(> img)) and (display: grid) {
+  .card:has(> img) {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@page :first {
+  margin: 2cm 1.5cm;
+}
+
+svg|circle {
+  fill: var(--yy-turkuaz);
+  stroke-width: 1.5px;
+}

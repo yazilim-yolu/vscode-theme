@@ -73,9 +73,9 @@
     "tab.activeForeground": "#24293F",
     "tab.inactiveForeground": "#6C7292",
     "tab.activeBorder": "#00000000",
-    "tab.activeBorderTop": "#7C3BED",
+    "tab.activeBorderTop": "#0E8FA3",
     "tab.hoverBackground": "#E7E9F3",
-    "tab.unfocusedActiveBorderTop": "#B9A6E8",
+    "tab.unfocusedActiveBorderTop": "#0E8FA366",
     "tab.border": "#E4E7F1",
 
     "titleBar.activeBackground": "#E9EBF4",
@@ -85,12 +85,18 @@
     "titleBar.border": "#00000000",
 
     "activityBar.background": "#E9EBF4",
-    "activityBar.foreground": "#2E3350",
+    "activityBar.foreground": "#0E8FA3",
     "activityBar.inactiveForeground": "#898FAC",
     "activityBar.border": "#00000000",
-    "activityBarBadge.background": "#7C3BED",
+    "activityBarBadge.background": "#0E8FA3",
     "activityBarBadge.foreground": "#FFFFFF",
     "activityBar.activeBorder": "#0E8FA3",
+    "modernActivityBarItem.activeForeground": "#0E8FA3",
+
+    "activityBarTop.background": "#E9EBF4",
+    "activityBarTop.foreground": "#0E8FA3",
+    "activityBarTop.inactiveForeground": "#898FAC",
+    "activityBarTop.activeBorder": "#0E8FA3",
 
     "sideBar.background": "#EFF1F8",
     "sideBar.foreground": "#3A4066",
