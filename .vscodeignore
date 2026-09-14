@@ -5,6 +5,7 @@ scratchpad/**
 samples/**
 scripts/**
 PUBLISHING.md
+DEVELOPMENT.md
 node_modules/**
 **/*.map
 **/*.vsix

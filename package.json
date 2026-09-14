@@ -1,7 +1,7 @@
 {
   "name": "yazilim-yolu-theme",
   "displayName": "Yazılım Yolu",
-  "description": "Yazılım Yolu şirket logosunun renklerinden (mor, turkuaz, lacivert) türetilmiş açık ve koyu VS Code temaları.",
+  "description": "Four color themes (Dark, Extra Dark, Light, Soft Light) in Yazılım Yolu's purple, teal and navy, with a rich, readable syntax palette for 20+ languages.",
   "version": "1.0.0",
   "publisher": "yazilim-yolu",
   "license": "MIT",
@@ -21,10 +21,20 @@
   ],
   "keywords": [
     "theme",
+    "color theme",
+    "dark theme",
+    "light theme",
     "dark",
     "light",
+    "extra dark",
+    "soft light",
+    "low contrast",
     "purple",
-    "teal"
+    "teal",
+    "navy",
+    "semantic highlighting",
+    "yazilim yolu",
+    "yazılım yolu"
   ],
   "icon": "assets/icon.png",
   "galleryBanner": {

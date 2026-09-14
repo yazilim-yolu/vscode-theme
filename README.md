@@ -1,80 +1,89 @@
-# Yazılım Yolu — VS Code Teması
+# Yazılım Yolu Theme
 
-Yazılım Yolu şirket logosunun üç renginden türetilmiş bir VS Code tema paketi.
-İki koyu ve iki açık olmak üzere dört varyant içerir.
+Four color themes for Visual Studio Code, built from the brand colors of
+Yazılım Yolu: **purple**, **teal** and **navy**. The interface stays calm and
+consistent, while a rich syntax palette keeps code easy to scan.
 
-## Marka renkleri
+## Themes
 
-| Renk     | Hex       | Kullanım                                                                                 |
-| -------- | --------- | ---------------------------------------------------------------------------------------- |
-| Mor      | `#7C3BED` | Ana vurgu: butonlar, odak çerçevesi, kenar çubuğu sayaçları, anahtar kelimeler           |
-| Turkuaz  | `#3ABACD` | Aktiflik vurgusu: etkinlik çubuğu, aktif sekme, imleç, bağlantılar, arama eşleşmeleri    |
-| Lacivert | `#232D5B` | Koyu temanın zemin tonu, açık temada gölge/kaydırma                                      |
+| Theme                       | Type  | Best for                                                                  |
+| --------------------------- | ----- | ------------------------------------------------------------------------- |
+| **Yazılım Yolu Dark**       | Dark  | Everyday use. Deep navy background with vivid, balanced syntax colors.    |
+| **Yazılım Yolu Extra Dark** | Dark  | Dim rooms and late nights. Same syntax colors on a darker background.     |
+| **Yazılım Yolu Light**      | Light | Bright environments. Crisp syntax colors on a near-white background.      |
+| **Yazılım Yolu Soft Light** | Light | Long sessions in daylight. Dimmer background and softer text, less glare. |
 
-Arayüz (workbench) kroması bu üç tona sadık kalır. Koyu temanın zeminleri logo
-lacivertinden türetilmiştir; doygunluğu korunur (~%46) ama hue'su bir miktar
-maviye alınır (232° → ~222°) ve açıklığı düşürülür. Bu sapma bilinçlidir:
-lacivertin kendi hue'su geniş ve çok koyu bir zemin olarak, üstelik mor
-vurguların yanında kullanıldığında mora kayıyor.
+## Installation
 
-Kod dosyalarında ise bluloco tarzı, daha zengin bir sözdizimi paleti kullanılır —
-üç marka tonundan yola çıkıp okunabilirlik için açık/koyu zemine göre parlaklık
-ve doygunluğu ayarlanmış ~10 ayrı renk: mor/lavanta (anahtar kelime), köprü
-mavisi (fonksiyon), yeşil-turkuaz (string), turkuaz (regexp), teal (tip/sınıf),
-amber (sayı/sabit), sarı (dekoratör/makro), gül (etiket, `this`/`self`).
-Palet TypeScript/JSX, Python, Rust, Go, C/C++, C#, Java, PHP, Ruby, CSS/SCSS,
-JSON, YAML, TOML, SQL, GraphQL, Markdown, Dockerfile ve shell kapsamları için
-ayrıca ayarlanmıştır.
+1. Open the **Extensions** view: `Ctrl+Shift+X` (macOS: `Cmd+Shift+X`).
+2. Search for **Yazılım Yolu** and click **Install**.
+3. Open the theme picker with `Ctrl+K Ctrl+T` (macOS: `Cmd+K Cmd+T`) and
+   choose one of the four themes.
 
-## İçindekiler
+You can also install it from Quick Open (`Ctrl+P` / `Cmd+P`):
 
-- **Yazılım Yolu Dark**
-- **Yazılım Yolu Extra Dark**: Dark'ın daha koyu zeminli hâli, sözdizimi renkleri aynı.
-- **Yazılım Yolu Light**
-- **Yazılım Yolu Soft Light**: Light'ın daha az parlak, daha düşük kontrastlı hâli.
-
-Extra Dark ve Soft Light dosyaları elle düzenlenmez, Dark ve Light'tan
-[`scripts/build-variants.js`](scripts/build-variants.js) ile üretilir. Ana temalardan
-birini değiştirdikten sonra `npm run build:variants` çalıştırın. `vsce package`
-bu adımı `vscode:prepublish` ile kendiliğinden de çalıştırır.
-
-## Test dosyaları
-
-[`samples/`](samples/) klasöründe 23 dilin her biri için, ilgili dilin neredeyse
-tüm anahtar kelimelerini ve sözdizimi yapılarını kapsayan birer örnek dosya var.
-Temayı seçtikten sonra bu dosyaları açarak renklendirmeyi bir bütün olarak
-görebilirsiniz — ayrıntı için [samples/README.md](samples/README.md).
-Klasör `.vscodeignore` ile paketleme dışında tutulur.
-
-## Kurulum (yerel)
-
-```bash
-npm install -g @vscode/vsce
-cd vscode-theme
-vsce package
-code --install-extension yazilim-yolu-theme-1.0.0.vsix
+```text
+ext install yazilim-yolu.yazilim-yolu-theme
 ```
 
-Ya da geliştirme için: klasörü VS Code'da açıp `F5` ile Extension Development
-Host başlatın, ardından **Ctrl+K Ctrl+T** ile temayı seçin.
+Using **Cursor**, **VSCodium** or **Windsurf**? The theme is also published on
+[Open VSX](https://open-vsx.org/extension/yazilim-yolu/yazilim-yolu-theme), so
+you can install it from the Extensions view of those editors too.
 
-## Yayınlama
+## Colors
 
-Tema iki mağazaya yayınlanır: VS Code için **VS Code Marketplace**, Cursor,
-VSCodium ve Windsurf gibi editörler için **Open VSX**. İlk yayın için hesap
-kurulumu ve her yeni sürümde izlenecek adımlar [PUBLISHING.md](PUBLISHING.md)
-dosyasındadır.
+### Accents
 
-Kısaca, iki mağazaya da aynı `.vsix` paketi yüklenir:
+| Color  | Hex       | Used for                                                                           |
+| ------ | --------- | ---------------------------------------------------------------------------------- |
+| Purple | `#7C3BED` | Primary accent: buttons, focus borders, side bar badges, keywords                  |
+| Teal   | `#3ABACD` | Active state: Activity Bar icon and badge, active tab, cursor, links, find matches |
+| Navy   | `#232D5B` | The base of the dark backgrounds                                                   |
 
-```bash
-vsce package    # yazilim-yolu-theme-<sürüm>.vsix üretir
+### Syntax
 
-# VS Code Marketplace: paketi https://marketplace.visualstudio.com/manage
-# sayfasından elle yükleyin (Azure DevOps token'ı gerekmez).
+| Token                          | Dark      | Light     |
+| ------------------------------ | --------- | --------- |
+| Keywords                       | `#9570ED` | `#6E25EB` |
+| Control flow (`if`, `return`)  | `#B688F2` | `#8927D0` |
+| Functions and methods          | `#4299EE` | `#225BC5` |
+| Strings                        | `#5CCAA3` | `#1C8E69` |
+| Types and classes              | `#41C2B7` | `#0D8469` |
+| Properties and object keys     | `#79CAD6` | `#0E7083` |
+| Numbers and constants          | `#DB9658` | `#A35511` |
+| Parameters                     | `#C28DF1` | `#7F2CD4` |
+| Decorators and macros          | `#E0B563` | `#8E6200` |
+| Tags, `this` / `self`          | `#E4658A` | `#B23557` |
+| Regular expressions            | `#44C2D3` | `#0D8799` |
+| Comments                       | `#5C6280` | `#8B92AE` |
 
-# Open VSX:
-npx ovsx publish yazilim-yolu-theme-<sürüm>.vsix -p <OPEN_VSX_TOKEN>
-```
+Extra Dark uses the same syntax colors as Dark. Soft Light uses Light's colors,
+slightly deepened where needed to stay readable on its dimmer background.
 
-Lisans: [MIT](LICENSE)
+In the dark themes, every syntax color except comments has a contrast ratio of
+at least 5:1 against the editor background, above the WCAG AA level for text.
+
+## Language support
+
+The themes work with any language, and include hand-tuned scopes for:
+
+TypeScript, JavaScript, JSX/TSX, Python, Rust, Go, C, C++, C#, Java, PHP, Ruby,
+CSS, SCSS, LESS, HTML, JSON, YAML, TOML, INI, SQL, GraphQL, Markdown,
+Dockerfile, Makefile and shell scripts.
+
+**Semantic highlighting** is enabled, so languages with a semantic token
+provider (such as TypeScript, Python, Rust, Go and C#) get more precise colors
+for classes, parameters, properties and read-only variables.
+
+The themes also style the integrated terminal, Git decorations, diff views and
+the Activity Bar in VS Code's modern layout.
+
+## Feedback
+
+Found a color that is hard to read, or a language that looks off? Please
+[open an issue](https://github.com/yazilim-yolu/vscode-theme/issues). A
+screenshot and the file type help a lot.
+
+## License
+
+[MIT](LICENSE) © Yazılım Yolu
