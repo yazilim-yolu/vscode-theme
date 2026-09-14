@@ -61,20 +61,20 @@ Host başlatın, ardından **Ctrl+K Ctrl+T** ile temayı seçin.
 ## Yayınlama
 
 Tema iki mağazaya yayınlanır: VS Code için **VS Code Marketplace**, Cursor,
-VSCodium ve Windsurf gibi editörler için **Open VSX**.
+VSCodium ve Windsurf gibi editörler için **Open VSX**. İlk yayın için hesap
+kurulumu ve her yeni sürümde izlenecek adımlar [PUBLISHING.md](PUBLISHING.md)
+dosyasındadır.
 
-`package.json` içindeki `publisher` alanı, iki mağazadaki publisher/namespace
-kimliğiyle aynı olmalıdır. Yayınlamadan önce `version` alanını artırın ve
-CHANGELOG'a giriş ekleyin.
+Kısaca, iki mağazaya da aynı `.vsix` paketi yüklenir:
 
 ```bash
-# VS Code Marketplace (Azure DevOps PAT gerekir, kapsam: Marketplace → Manage)
-vsce login yazilim-yolu
-vsce publish
+vsce package    # yazilim-yolu-theme-<sürüm>.vsix üretir
 
-# Open VSX (open-vsx.org erişim anahtarı gerekir)
-npx ovsx create-namespace yazilim-yolu -p <TOKEN>   # yalnızca ilk sefer
-npx ovsx publish -p <TOKEN>
+# VS Code Marketplace: paketi https://marketplace.visualstudio.com/manage
+# sayfasından elle yükleyin (Azure DevOps token'ı gerekmez).
+
+# Open VSX:
+npx ovsx publish yazilim-yolu-theme-<sürüm>.vsix -p <OPEN_VSX_TOKEN>
 ```
 
 Lisans: [MIT](LICENSE)
