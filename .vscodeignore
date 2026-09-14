@@ -3,6 +3,7 @@
 .gitignore
 scratchpad/**
 samples/**
+scripts/**
 node_modules/**
 **/*.map
 **/*.vsix

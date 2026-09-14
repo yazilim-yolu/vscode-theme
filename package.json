@@ -2,8 +2,17 @@
   "name": "yazilim-yolu-theme",
   "displayName": "Yazılım Yolu",
   "description": "Yazılım Yolu şirket logosunun renklerinden (mor, turkuaz, lacivert) türetilmiş açık ve koyu VS Code temaları.",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "publisher": "yazilim-yolu",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yazilim-yolu/vscode-theme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yazilim-yolu/vscode-theme/issues"
+  },
+  "homepage": "https://github.com/yazilim-yolu/vscode-theme#readme",
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -22,6 +31,10 @@
     "color": "#232D5B",
     "theme": "dark"
   },
+  "scripts": {
+    "build:variants": "node scripts/build-variants.js",
+    "vscode:prepublish": "node scripts/build-variants.js"
+  },
   "contributes": {
     "themes": [
       {
@@ -30,9 +43,19 @@
         "path": "./themes/yazilim-yolu-dark-color-theme.json"
       },
       {
+        "label": "Yazılım Yolu Extra Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/yazilim-yolu-extra-dark-color-theme.json"
+      },
+      {
         "label": "Yazılım Yolu Light",
         "uiTheme": "vs",
         "path": "./themes/yazilim-yolu-light-color-theme.json"
+      },
+      {
+        "label": "Yazılım Yolu Soft Light",
+        "uiTheme": "vs",
+        "path": "./themes/yazilim-yolu-soft-light-color-theme.json"
       }
     ]
   }
